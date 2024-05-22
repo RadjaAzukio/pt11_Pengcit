@@ -36,45 +36,60 @@ st.pyplot(fig)
 ## Menggunakan *Activate Contour*
 
 ## Input : 
-
 ```
 img2 = data.astronaut()
+img3 = rgb2gray(img2)
 ```
 
 ```
 # Data fro circular boundary
 s = np.linspace(0, 2*np.pi, 400)
-x = 220 + 100*np.cos(s)
-y = 100 + 100*np.sin(s)
+x = 100 + 100*np.cos(s)
+y = 220 + 100*np.sin(s)
 init = np.array([x, y]).T
 ```
 
 ```
 # Formation of the active contour
-cntr = active_contour(gaussian(img2, 3), init, alpha=0.015, beta=10, gamma=0.001)
-fig, ax = plt.subplots(1, 2, figsize=(7, 7))
+cntr = active_contour(gaussian(img2, sigma=3, preserve_range=False),
+    init,
+    alpha=0.015,
+    beta=10,
+    gamma=0.001,
+)
+```
 
+```
+fig, ax = plt.subplots(1, 2, figsize=(7, 7))
+```
+
+```
 ax[0].imshow(img2, cmap=plt.cm.gray)
 ax[0].set_title('Original Image')
-
-ax[1].imshow(img2, cmap=plt.cm.gray)
 ```
 
 ```
 # Circular boundary
-ax[1].plot(init[:, 0], init[:, 1], '--r', lw=3)
-ax[1].plot(cntr[:, 0], cntr[:, 1], '-b', lw=3)
+ax[1].imshow(img2, cmap=plt.cm.gray)
+ax[1].plot(init[:, 1], init[:, 0], '--r', lw=3)
+ax[1].plot(cntr[:, 1], cntr[:, 0], '-b', lw=3)
+ax[1].set_xticks([]), 
+ax[1].set_yticks([])
+ax[1].axis([0, img2.shape[1], img2.shape[0], 0])
 ax[1].set_title('Active Contour Image')
+```
 
+```
 fig.tight_layout()
 st.pyplot(fig)
 ```
+
 #### Output : 
-![astroboy](https://github.com/RadjaAzukio/pt11_Pengcit/assets/115551911/e4e1646f-4eb0-4336-95f7-054bfc80ed9d)
+![astroboy](https://github.com/RadjaAzukio/pt11_Pengcit/assets/115551911/141cf1d7-3241-4bc8-9610-e389980c2269)
 
 
 ##### More Content Our Project^^
 ###### Network URL : 
 http://172.10.3.252:8501
-
+###### Powered By : Streamlit
 ##### ありがとうございました
